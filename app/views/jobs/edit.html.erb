@@ -1,0 +1,8 @@
+<h1>编辑工作岗位</h1>
+
+<%= simple_form_for @job do |f|%>
+  <%= f.input :title, :label => "岗位名称" %>
+  <%= f.input :description, :label => "岗位描述"%>
+
+  <%= f.submit "提交"%>
+<% end %>
