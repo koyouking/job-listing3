@@ -2,21 +2,53 @@
   <%= link_to("新增", new_job_path, :class => "btn btn-default")%>
 </div>
 <br><br>
+<div class="dropdown clearfix pull-right">
+  <button class = "btn btn-default dropdown-toggle" type="button"
+          id="dropdownMenuDivider" data-toggle= "dropdown"
+          aria-haspopup= "true" aria-expaned="true">
+          排序
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby= "dropdownMenuDivider">
+    <Li>
+      <%= link_to("按照薪资下限排序", jobs_path(:order => "by_lower_bound"))%>
+    </li>
+    <li>
+      <%= link_to("按照薪资上限排序",jobs_path(:order => "by_upper_bound"))%>
+    </li>
+    <li>
+      <%= link_to("按照刊登时间排序",jobs_path)%>
+    </li>
 
-<table class="table table-boldered">
-  <% @jobs.each do |job|%>
+</div>
+
+
+
+<table class= "table table-boldered">
+  <thead>
+    <tr>
+      <td>工作岗位</td>
+      <td>薪资下限</td>
+      <td>薪资上限</td>
+      <td>刊登时间</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jobs.each do |job| %>
     <tr>
       <td>
         <%= link_to(job.title, job_path(job))%>
       </td>
       <td>
-          <%= link_to("编辑", edit_job_path(job))%>
-          <%= link_to("删除", job_path(job), :method => :delete,
-          :data => {:confirm => "确定删除吗？"})%>
+        <%= job.wage_lower_bound%>
+      </td>
+      <td>
+        <%= job.wage_upper_bound%>
       </td>
       <td>
         <%= job.created_at%>
       </td>
     </tr>
     <% end %>
+  </tbody>
 </table>
