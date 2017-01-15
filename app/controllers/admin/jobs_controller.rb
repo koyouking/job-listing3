@@ -1,9 +1,14 @@
 class Admin::JobsController < ApplicationController
   before_action :authenticate_user!, only:[:new, :create, :edit, :update, :destroy]
   before_action :require_is_admin
+  layout "admin"
 
   def show
     @job = Job.find(params[:id])
+    if @job.is_hidden
+      flash[:warning] = "此工作岗位信息不存在"
+      redirect_to root_path
+    end
   end
   def index
     @jobs = Job.all.order("created_at DESC")
@@ -36,6 +41,17 @@ class Admin::JobsController < ApplicationController
 
     redirect_to admin_jobs_path
   end
+  def publish
+    @job = Job.find(params[:id])
+    @job.publish!
+    redirect_to :back
+  end
+  def hide
+    @job = Job.find(params[:id])
+    @job.hide!
+    redirect_to :back
+  end
+
 
   private
   def job_params
