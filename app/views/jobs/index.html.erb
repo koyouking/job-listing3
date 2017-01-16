@@ -10,6 +10,9 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby= "dropdownMenuDivider">
+    <!-- <Li>
+      <%#= link_to("按已投递简历数", jobs_path(:order => "by_resumes.count"))%>
+    </li> -->
     <Li>
       <%= link_to("按照薪资下限排序", jobs_path(:order => "by_lower_bound"))%>
     </li>
@@ -28,6 +31,7 @@
   <thead>
     <tr>
       <td>工作岗位</td>
+      <td>已投简历数</td>
       <td>薪资下限</td>
       <td>薪资上限</td>
       <td>刊登时间</td>
@@ -38,6 +42,9 @@
     <tr>
       <td>
         <%= link_to(job.title, job_path(job))%>
+      </td>
+      <td>
+        <%= job.resumes.count%>
       </td>
       <td>
         <%= job.wage_lower_bound%>

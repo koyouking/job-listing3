@@ -7,6 +7,8 @@ class JobsController < ApplicationController
 
   def index
     @jobs = case params[:order]
+    # when 'by_resume_count'
+    #   Job.published.order('resumes.count DESC')
     when 'by_lower_bound'
       Job.published.order('wage_lower_bound DESC')
     when 'by_upper_bound'
